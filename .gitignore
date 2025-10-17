@@ -37,18 +37,12 @@ logs/
 *.log
 
 # Database
-data/*.db
-data/*.db-journal
-data/*.sqlite
-data/*.sqlite3
 
 # Models
 models/saved/*.pkl
 models/saved/*.json
 
 # Configuration (contains API keys)
-config/config.yaml
-config/telegram_config.yaml
 
 # Keep template configs
 !config/config.yaml.template

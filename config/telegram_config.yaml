@@ -1,0 +1,29 @@
+# Telegram Bot Configuration
+
+telegram:
+  enabled: true
+  bot_token: "8418141138:AAGx8eVszI-3IExhf3mk8WlkDMqHlTTfYsY"
+  chat_id: "-4937638269"
+  
+  # Notification Settings
+  notifications:
+    trade_signals: true
+    trade_outcomes: true
+    daily_summary: true
+    system_alerts: true
+    errors: true
+    model_retraining: true
+  
+  # Daily Summary Time (UTC)
+  daily_summary_time: "22:00"
+  
+  # Message Templates
+  templates:
+    buy_signal: "🟢 GOLD BUY @ {entry_price} | SL: {stop_loss} | TP: {take_profit} | Confidence: {confidence}%"
+    sell_signal: "🔴 GOLD SELL @ {entry_price} | SL: {stop_loss} | TP: {take_profit} | Confidence: {confidence}%"
+    trade_win: "✅ GOLD {direction} closed +{pips} pips | RR: 1:{rr} | Duration: {duration}m"
+    trade_loss: "❌ GOLD {direction} closed -{pips} pips | Duration: {duration}m"
+    daily_summary: "📊 Daily Stats: {total_trades} trades, {wins}W-{losses}L, Win Rate: {win_rate}%, Net: {net_pips} pips"
+    system_alert: "⚠️ System Alert: {message}"
+    error: "🚨 Error: {error_message}"
+    model_retrain: "🤖 Model Retrained | Accuracy: {accuracy}% | Precision: {precision}% | Date: {date}"

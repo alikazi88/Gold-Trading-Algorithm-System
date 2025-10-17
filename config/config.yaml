@@ -1,0 +1,105 @@
+# Gold Scalping System Configuration
+
+# API Configuration
+api:
+  alltick:
+    base_url: "https://quote.alltick.co/quote-b-api"
+    websocket_url: "wss://quote.alltick.co/quote-b-ws-api"
+    token: "180dc29f5cd599cb355387e73d3d808e-c-app"
+    rate_limit_calls: 10
+    rate_limit_period: 60  # seconds
+
+# Database Configuration
+database:
+  path: "data/gold_trading.db"
+  backup_enabled: true
+  backup_interval_hours: 24
+
+# Trading Configuration
+trading:
+  symbol: "GOLD"
+  timeframe: "5m"
+  position_size: 0.1  # lots
+  max_concurrent_trades: 1
+  max_trades_per_day: 15
+  daily_drawdown_limit: 0.03  # 3%
+  min_confidence_threshold: 0.70  # 70%
+  
+# Risk Management
+risk:
+  stop_loss_atr_multiplier: 1.0
+  take_profit_ratio: 2.0  # 1:2 RR
+  trail_to_breakeven_at_rr: 1.0  # Trail SL to BE after 1:1
+  atr_period: 20
+  
+# Feature Engineering
+features:
+  lookback_candles: 20
+  swing_detection_window: 10
+  volume_spike_threshold: 2.0  # 2x average
+  fvg_min_size_pips: 5.0
+  order_block_strength_threshold: 0.6
+  
+# Model Configuration
+model:
+  # Model type: 'random_forest' or 'gru'
+  type: "gru"
+  
+  # Random Forest parameters (if type='random_forest')
+  n_estimators: 100
+  max_depth: 20
+  min_samples_split: 5
+  min_samples_leaf: 1
+  max_features: "sqrt"
+  random_state: 42
+  
+  # GRU parameters (if type='gru')
+  gru_sequence_length: 20        # Number of time steps to look back
+  gru_units: [128, 64, 32]       # GRU layer sizes
+  gru_dropout: 0.3               # Dropout rate
+  gru_learning_rate: 0.001       # Learning rate
+  gru_batch_size: 32             # Batch size for training
+  gru_epochs: 50                 # Maximum epochs (early stopping enabled)
+  
+  # Common parameters
+  min_accuracy: 0.60
+  min_precision: 0.65
+  retrain_interval_days: 14
+  model_path: "models/saved/gru_scalping_model_latest.h5"
+  
+# Labeling Configuration
+labeling:
+  target_rr: 2.0
+  max_holding_candles: 20  # 100 minutes
+  
+# Data Collection
+data:
+  initial_fetch_days: 365  # 1 year
+  update_interval_seconds: 300  # 5 minutes
+  
+# Logging
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR, CRITICAL
+  log_file: "logs/trading_system.log"
+  max_file_size_mb: 50
+  backup_count: 5
+  
+# Backtesting
+backtest:
+  start_date: null  # YYYY-MM-DD or null for auto
+  end_date: null
+  initial_balance: 10000
+  commission_per_trade: 0.0  # in account currency
+  slippage_pips: 1.0
+  
+# Session Times (UTC)
+sessions:
+  asian:
+    start: "00:00"
+    end: "08:00"
+  london:
+    start: "08:00"
+    end: "16:00"
+  new_york:
+    start: "13:00"
+    end: "22:00"
